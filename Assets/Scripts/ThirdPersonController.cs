@@ -42,7 +42,7 @@ public class ThirdPersonController : MonoBehaviour
     private float dashTimer;
     [FoldoutGroup("Controller/Animator"), SerializeField]
     private CinemachineImpulseSource source;
-
+   
     [SerializeField] private Vector2 moveInput;
     private bool isSprinting;
 
@@ -59,16 +59,23 @@ public class ThirdPersonController : MonoBehaviour
     [FoldoutGroup("WallRun")]
     public bool enableWallRun;
 
+
     public bool aimMode = false;
 
     Vector3 normalDebug;
     Vector3 impactPoint;
     Vector3 crossResult;
+    Vector2 throwForce;
 
     public LineRenderer Rayprefab;
     public Transform WeaponShootAnchor;
     public GameObject CannonPrefab;
     public Transform CannonSpawnPoint;
+    public LayerMask enemyMask;
+
+    public GameObject GranadePrefab;
+
+
 
 
     [FoldoutGroup("FX")]
@@ -113,6 +120,8 @@ public class ThirdPersonController : MonoBehaviour
             aimMode = false;
         };
         inputs.Player.Attack.performed += OnAttack;
+        inputs.Player.ThrowGranade.performed += ThrowGranade;
+
 
     }
     void Start()
@@ -124,6 +133,10 @@ public class ThirdPersonController : MonoBehaviour
         EnableWallRun();
         OnMove();
         //OnSimpleMove();
+        
+
+
+
     }
 
     private void SpawnCannon(InputAction.CallbackContext context)
@@ -146,6 +159,7 @@ public class ThirdPersonController : MonoBehaviour
                 Quaternion targetQuaternion = Quaternion.LookRotation(cameraForwardDir);
                 //transform.rotation = targetQuaternion;
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetQuaternion, rotationSpeed * Time.deltaTime);
+                
             }
             else
             {
@@ -223,14 +237,17 @@ public class ThirdPersonController : MonoBehaviour
         if (muzzleFlash != null) muzzleFlash.Play(); 
         Ray ray = new Ray(characterAimCamera.transform.position, characterAimCamera.transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+      //if (Physics.Raycast(ray, out RaycastHit hit, 100))
+
+        if(Physics. SphereCast(WeaponShootAnchor.position,5f, characterAimCamera. transform. forward, out RaycastHit hit, 100f, enemyMask))
         {
             LineRenderer line = Instantiate(Rayprefab);
 
             line.positionCount = 2;
             line.SetPosition(0, WeaponShootAnchor.position);
             line.SetPosition(1, hit.point);
-           
+            GameObject Cannon = Instantiate(CannonPrefab, hit.point, Quaternion.identity);
+            Cannon.transform.up = hit.normal;
             Destroy(line.gameObject, lineDuration);
          
             if (impactParticlesPrefab != null)
@@ -249,7 +266,17 @@ public class ThirdPersonController : MonoBehaviour
             line.SetPosition(0, WeaponShootAnchor.position);
             line.SetPosition(1, ray.origin + ray.direction * 100);
             Destroy(line.gameObject, lineDuration);
+            Debug.Log("Miss");
         }
+
+    }
+
+    private void ThrowGranade(InputAction.CallbackContext context)
+    {
+        GameObject granade = Instantiate(GranadePrefab, transform.position, Quaternion.identity);
+        Vector3 dir = characterCamera.transform.forward;
+        granade.GetComponent<Rigidbody>().AddForce(dir * throwForce, ForceMode.Impulse);
+
 
     }
 
