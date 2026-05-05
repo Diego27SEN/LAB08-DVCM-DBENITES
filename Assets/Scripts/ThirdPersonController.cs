@@ -77,7 +77,6 @@ public class ThirdPersonController : MonoBehaviour
 
 
 
-
     [FoldoutGroup("FX")]
     public ParticleSystem impactParticlesPrefab; 
     [FoldoutGroup("FX")]
@@ -249,7 +248,7 @@ public class ThirdPersonController : MonoBehaviour
             GameObject Cannon = Instantiate(CannonPrefab, hit.point, Quaternion.identity);
             Cannon.transform.up = hit.normal;
             Destroy(line.gameObject, lineDuration);
-         
+
             if (impactParticlesPrefab != null)
             {               
                 ParticleSystem impact = Instantiate(
