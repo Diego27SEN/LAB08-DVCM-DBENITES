@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7864219397237979986}
   - component: {fileID: 3035311803110042372}
   - component: {fileID: 4691625109964827984}
+  - component: {fileID: -8045222139707422274}
   m_Layer: 0
   m_Name: Granade
   m_TagString: Untagged
@@ -140,3 +141,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-8045222139707422274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830948479091322399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0b79934ab78554ab9ebac1fcda59b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Granade
+  timer: 5
+  radius: 5
+  mask:
+    serializedVersion: 2
+    m_Bits: 64
+  TimeExplotion: 5
+  OnExplotion:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2100000, guid: f1b0fea076fb0574d868f6e3d9523f52, type: 2}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

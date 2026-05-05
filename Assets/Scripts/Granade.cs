@@ -6,7 +6,7 @@ public class Granade : MonoBehaviour
     public float timer;
     public float radius;
     public LayerMask mask;
-
+    public float TimeExplotion = 5f;
     public UnityEvent OnExplotion;
     
     void Start()
@@ -22,7 +22,7 @@ public class Granade : MonoBehaviour
 
     public void OnExplode()
     {
-        Collider[] colls = Physics.OverlapSphere(transform.position, radius, mask);
+        Collider[] colls = Physics.OverlapSphere(transform.position, 5f, mask);
 
         foreach (var coll in colls)
         {
@@ -32,7 +32,7 @@ public class Granade : MonoBehaviour
         //->siustema de particulas de explosion
         OnExplotion?.Invoke();
 
-        Destroy(gameObject);
+        Destroy(gameObject,TimeExplotion);
 
     }
 }
