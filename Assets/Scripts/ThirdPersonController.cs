@@ -241,13 +241,14 @@ public class ThirdPersonController : MonoBehaviour
         if(Physics. SphereCast(WeaponShootAnchor.position,5f, characterAimCamera. transform. forward, out RaycastHit hit, 100f, enemyMask))
         {
             LineRenderer line = Instantiate(Rayprefab);
-
             line.positionCount = 2;
             line.SetPosition(0, WeaponShootAnchor.position);
             line.SetPosition(1, hit.point);
+
             GameObject Cannon = Instantiate(CannonPrefab, hit.point, Quaternion.identity);
             Cannon.transform.up = hit.normal;
             Destroy(line.gameObject, lineDuration);
+
 
             if (impactParticlesPrefab != null)
             {               
@@ -267,7 +268,7 @@ public class ThirdPersonController : MonoBehaviour
             Destroy(line.gameObject, lineDuration);
             Debug.Log("Miss");
         }
-
+     
     }
 
     private void ThrowGranade(InputAction.CallbackContext context)

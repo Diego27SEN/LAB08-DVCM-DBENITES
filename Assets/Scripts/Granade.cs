@@ -3,15 +3,14 @@ using UnityEngine.Events;
 
 public class Granade : MonoBehaviour
 {
-    public float timer;
     public float radius;
-    public LayerMask mask;
+    public LayerMask enemyMask;
     public float TimeExplotion = 5f;
     public UnityEvent OnExplotion;
     
     void Start()
     {
-        Invoke(nameof(OnExplode), timer);
+        Invoke(nameof(OnExplode), TimeExplotion);
     }
 
     // Update is called once per frame
@@ -22,7 +21,7 @@ public class Granade : MonoBehaviour
 
     public void OnExplode()
     {
-        Collider[] colls = Physics.OverlapSphere(transform.position, 5f, mask);
+        Collider[] colls = Physics.OverlapSphere(transform.position, 5f, enemyMask);
 
         foreach (var coll in colls)
         {

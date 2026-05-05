@@ -1,10 +1,13 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemySimpleController : MonoBehaviour
 {
+    public int lifeEnemy = 100;
     public Transform Target;
     private NavMeshAgent agentEnemy;
+    public int count = 0;
 
     void Start()
     {
@@ -24,6 +27,29 @@ public class EnemySimpleController : MonoBehaviour
             agentEnemy.stoppingDistance = Random.Range(1f, 3f);
             agentEnemy.avoidancePriority = Random.Range(0, 99);
             agentEnemy.angularSpeed = Random.Range(0, 120);
+        }
+
+        Destination();
+        OnDead();
+    }
+        
+    public void HasPath()
+    {
+        print(agentEnemy.hasPath);
+    }
+    public void Destination()
+    {
+        if (Target != null)
+        {
+            agentEnemy.SetDestination(Target.position);
+
+        }
+    }
+    public void OnDead()
+    {
+        if (lifeEnemy <= 0)
+        {
+            Destroy(gameObject);
         }
     }
     private void OnDrawGizmos()
