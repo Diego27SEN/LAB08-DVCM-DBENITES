@@ -13,11 +13,6 @@ public class EnemySimpleController : MonoBehaviour
     {
         agentEnemy = GetComponent<NavMeshAgent>();
         Target = GameObject.FindGameObjectWithTag("Humanoid").transform;
-
-    }
-
-    void Update()
-    {
         if (Target != null && agentEnemy.isOnNavMesh)
         {
             agentEnemy.SetDestination(Target.position);
@@ -28,6 +23,12 @@ public class EnemySimpleController : MonoBehaviour
             agentEnemy.avoidancePriority = Random.Range(0, 99);
             agentEnemy.angularSpeed = Random.Range(0, 120);
         }
+
+    }
+
+    void Update()
+    {
+        
 
         Destination();
         OnDead();

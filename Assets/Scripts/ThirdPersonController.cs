@@ -245,9 +245,6 @@ public class ThirdPersonController : MonoBehaviour
             line.SetPosition(0, WeaponShootAnchor.position);
             line.SetPosition(1, hit.point);
 
-            GameObject Cannon = Instantiate(CannonPrefab, hit.point, Quaternion.identity);
-            Cannon.transform.up = hit.normal;
-            Destroy(line.gameObject, lineDuration);
 
 
             if (impactParticlesPrefab != null)
@@ -258,6 +255,11 @@ public class ThirdPersonController : MonoBehaviour
                     Quaternion.LookRotation(hit.normal)
                 );
                 Destroy(impact.gameObject, 2f);
+            }
+
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                Destroy(hit.collider.transform.root.gameObject);
             }
         }
         else

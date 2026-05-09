@@ -153,22 +153,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0b79934ab78554ab9ebac1fcda59b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Granade
-  timer: 5
   radius: 5
-  mask:
+  enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  TimeExplotion: 5
+  TimeExplotion: 3
   OnExplotion:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2100000, guid: f1b0fea076fb0574d868f6e3d9523f52, type: 2}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.Material, UnityEngine
         m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Texture, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
