@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour
@@ -5,12 +6,17 @@ public class Cannon : MonoBehaviour
     public float range = 10f;
     public float rotationSpeed = 5f;
 
-    public GameObject bulletPrefab;
+    
     public Transform firePoint;
     public Transform head;
-
+    public float fireRate = 1f;
+    private float fireTimer;
     private Transform target;
-
+    public LineRenderer laserPrefab;
+    [FoldoutGroup("FX")] public float lineDuration = 0.05f;
+    [FoldoutGroup("FX")]
+    public ParticleSystem impactParticlesPrefab;
+  
     void Update()
     {
         FindTarget();
@@ -51,9 +57,29 @@ public class Cannon : MonoBehaviour
 
     void Shoot() // dispara projétil
     {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-    }
 
+        fireTimer += Time.deltaTime;
+
+        if (fireTimer >= fireRate)
+        {
+            fireTimer = 0f;
+
+            LineRenderer line = Instantiate(laserPrefab);
+
+            line.positionCount = 2;
+
+            line.SetPosition(0, firePoint.position);
+            line.SetPosition(1, target.position + Vector3.up);
+
+            ParticleSystem impact = Instantiate(impactParticlesPrefab,target.position,Quaternion.identity);
+
+            Destroy(impact.gameObject, 2f);
+
+            Destroy(line.gameObject, lineDuration);
+
+            Destroy(target.gameObject);
+        }
+    }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

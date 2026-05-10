@@ -7,7 +7,7 @@ public class Granade : MonoBehaviour
     public LayerMask enemyMask;
     public float TimeExplotion = 5f;
     public UnityEvent OnExplotion;
-    
+    public GameObject explosionPrefab;
 
     void Start()
     {
@@ -28,10 +28,11 @@ public class Granade : MonoBehaviour
         {
             //->mueran todos :D
             //->
-            Destroy(coll.gameObject);
+            Destroy(coll.transform.root.gameObject);
         }
         //->siustema de particulas de explosion
-        OnExplotion?.Invoke();
+        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
 
         Destroy(gameObject);
 

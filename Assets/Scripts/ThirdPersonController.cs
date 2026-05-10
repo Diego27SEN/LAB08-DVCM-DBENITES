@@ -244,6 +244,7 @@ public class ThirdPersonController : MonoBehaviour
             line.positionCount = 2;
             line.SetPosition(0, WeaponShootAnchor.position);
             line.SetPosition(1, hit.point);
+            Destroy(line.gameObject, lineDuration);
 
 
 

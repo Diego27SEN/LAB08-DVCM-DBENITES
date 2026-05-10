@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7913660377621274038}
   - component: {fileID: -4619196486612799608}
   - component: {fileID: 136562394794440776}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -128,7 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bbcd3339a912084d979daf3ecbb77ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySimpleController
+  lifeEnemy: 100
   Target: {fileID: 0}
+  count: 0
 --- !u!195 &136562394794440776
 NavMeshAgent:
   m_ObjectHideFlags: 0
